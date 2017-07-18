@@ -27,19 +27,24 @@ Notes/Log
 9. override modules/auth/config/auth.php to application/config/
 -Also changed the driver to orm and given hash key
 
-10. 
-11. 
-<code>
-CREATE TABLE IF NOT EXISTS `api_tokens` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `user_agent` varchar(40) NOT NULL,
-  `token` varchar(40) NOT NULL,
-  `created` int(10) UNSIGNED NOT NULL,
-  `expires` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `uniq_token` (`token`),
-  KEY `fk_user_id` (`user_id`),
-  KEY `expires` (`expires`)
-)
-</code>
+10. Created API end point for the following Signup, Login, Create User Profile (After Login), View User Profile (After Login)
+
+
+11.POSTMAN Collection
+
+Signup
+Method: POST
+Url: http://localhost/kohana_rest_services/index.php/v1/signup?
+parameters:username=sam1&email=sam1@live.com&password=123456
+
+Login
+Method: GET
+Url: http://localhost/kohana_rest_services/index.php/v1/user?
+parameter:apiKey=18c244afc5370fa64064abfedc14fdfe1d1a6229
+
+Updating User
+Mehtod:PUT
+Url:http://localhost/kohana_rest_services/index.php/v1/signup?
+parameters:apiKey=39e7598676e6721a06a0c2c64abba77cefeb0df4&email=admin2@live.com
+
+
