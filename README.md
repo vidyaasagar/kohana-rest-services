@@ -33,17 +33,23 @@ Notes/Log
 11.POSTMAN Collection
 
 Signup
+
 Method: POST
 Url: http://localhost/kohana_rest_services/index.php/v1/signup?
 parameters:username=sam1&email=sam1@live.com&password=123456
 
 Login
+
 Method: GET
+
+
 Url: http://localhost/kohana_rest_services/index.php/v1/user?
 parameter:apiKey=18c244afc5370fa64064abfedc14fdfe1d1a6229
 
 Updating User
+
 Mehtod:PUT
+
 Url:http://localhost/kohana_rest_services/index.php/v1/signup?
 parameters:apiKey=39e7598676e6721a06a0c2c64abba77cefeb0df4&email=admin2@live.com
 
