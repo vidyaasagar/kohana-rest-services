@@ -34,5 +34,26 @@ class Controller_User extends Controller_REST{
 		}
 		
     }
-
+	public function action_update()
+    {
+        try
+		{
+            if($this->_user->is_a('admin'))
+            $this->rest_output( $this->_user->updateUser($this->_params['email']) );
+            else
+				$this->rest_output( $this->_user->updateUser() );
+		}
+		catch (Kohana_HTTP_Exception $khe)
+		{
+			$this->_error($khe);
+			return;
+		}
+		catch (Kohana_Exception $e)
+		{
+			$this->_error('An internal error has occurred', 500);
+			throw $e;
+		}
+		
+    }
+	
 }

@@ -41,6 +41,16 @@ class RestUser  extends Kohana_RestUser{
        
 		return $this->userData;
     }
+    public function updateUser($email){
+       $user = ORM::factory('user', array('id' => $this->_id));
+       $user->email=$email;
+       $user->save();
+    return array(
+						'username'=>$user->username,
+						'email'=>$user->email,
+                        'message'=>'data updated'
+					);
+    }
     public function getUsers()
     {
         if($this->is_a('admin')){
