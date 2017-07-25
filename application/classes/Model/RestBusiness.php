@@ -1,5 +1,5 @@
 <?php
-class Model_BusinessModel{
+class Model_RestBusiness{
 
     public function create($params)
     {
@@ -23,7 +23,7 @@ class Model_BusinessModel{
 		{
 			throw HTTP_Exception::factory(400, array(
 				'error' => __('Missing description'),
-				'field' => 'password',
+				'field' => 'description',
 			));
 		}
 		if (!isset($params['location']))
@@ -45,7 +45,7 @@ class Model_BusinessModel{
                
                 // Returning a mock object.
                 return array(
-                    'business' => array('id' => $business->id, 'name' => $business->'name'),
+                    'business' => array('id' => $business->id, 'name' => $business->name),
                 );
             }else{
                 throw HTTP_Exception::factory(400, array(
