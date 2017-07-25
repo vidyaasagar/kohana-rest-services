@@ -48,7 +48,7 @@ parameter:apiKey=18c244afc5370fa64064abfedc14fdfe1d1a6229
 
 Updating User
 
-Mehtod:PUT
+Method:PUT
 
 Url:http://localhost/kohana_rest_services/index.php/v1/signup?
 parameters:apiKey=39e7598676e6721a06a0c2c64abba77cefeb0df4&email=admin2@live.com
