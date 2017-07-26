@@ -5,43 +5,58 @@
 Business->id(primary Key), name, description, location
 
 sample data in table:
-  [{     "id": 1,
+
+  [
+      
+      { 
+        "id": 1,
         "name": "omnify",
         "description": "A software Company",
         "location": "Bangalore"
-  },
-  {     "id": 2,
+      },
+      {    
+        "id": 2,
         "name": "omnify Mobile Apps",
         "description": "A Mobile Apps software Company",
         "location": "Bangalore"
-  }]
+      }
+
+  ]
 
 Customer->id(pk), email, phone_no, business_id(fk)(references 'id' from business table)
 
 sample data in table:
-    [{   "id":1,
+
+    [
+        
+        {   
+        "id":1,
         "name": "trendysoft",
         "email": "trendy@soft.com",
         "phone_no": "1235467890",
         "business_id":"1"
-    },
-    {
+        },
+        {
         "name": "CustMicrosoft",
         "email": "cust@microsoft.com",
         "phone_no": "1234567890",
         "business_id":"1"
-    },
-    {
+        },
+       {
         "name": "technotrends1",
         "email": "tech1@trends.com",
         "phone_no": "1234567890",
         "business_id":"2"
-    }]
+       }
+
+    ]
 
 Staff->id(pk), email, phone_no, business_id(fk)(references 'id' from business table)
 
 sample data in the table:
+
 [
+    
     {
         "name": "sam",
         "email": "sam@microsoft.com",
@@ -60,7 +75,9 @@ sample data in the table:
         "phone_no": "1235467591",
         "business_id":"2"
     }
+
 ]
+
 
 API Call Design:
 
