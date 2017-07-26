@@ -34,11 +34,19 @@ class Model_RestBusiness extends Model_RestAPI {
 				'field' => 'location',
 			));
 		}
+        if (!isset($params['code']))
+		{
+			throw HTTP_Exception::factory(400, array(
+				'error' => __('Missing code'),
+				'field' => 'code',
+			));
+		}
 		// Process the request and create a new object.
         $business = ORM::factory('business');
         $business->name = $params['name'];
         $business->description = $params['description']; 
         $business->location = $params['location']; 
+        $business->code = $params['code']; 
         try
         {       
             if($business->save())
@@ -46,7 +54,7 @@ class Model_RestBusiness extends Model_RestAPI {
                
                 // Returning a mock object.
                 return array(
-                    'business' => array('id' => $business->id, 'name' => $business->name),
+                    'business' => array('id' => $business->id, 'name' => $business->name, 'code' => $business->code),
                 );
             }else{
                 throw HTTP_Exception::factory(400, array(
@@ -154,4 +162,38 @@ class Model_RestBusiness extends Model_RestAPI {
         
     }
 
+    public function getData($params)
+    {
+        //used for searching the business based on name
+        if(isset($params['search']))
+        {
+            $business = ORM::factory('business')
+            ->where('name', 'like', '%'.$params['search'].'%')
+		    ->find_all();
+        }
+        else if(isset($params['id']))
+        {
+            $business = ORM::factory('business')
+            ->where('id', '=', $params['id'])
+		    ->find_all();
+        }
+        else{
+            //to get all businesses
+            $business = ORM::factory('business')
+		    ->find_all();
+        }
+        
+        $array_data=array();
+        $i=0;
+        foreach ($business as $key => $value) {
+            # code...
+            $array_data[$i]['name']=$value->name;
+            $array_data[$i]['description']=$value->description;
+            $array_data[$i]['location']=$value->location;
+            $i++;
+
+        }
+        return $array_data;
+    }
+    
 }

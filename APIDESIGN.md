@@ -92,15 +92,21 @@ URL: http://localhost/rest_services_kohana/index.php/v1/customer?id=1
 output:
 
 [
+    
     {       
+       
         "name": "trendysoft",
         "email": "trendy@soft.com",
-        "phone_no": "1235467890"        
+        "phone_no": "1235467890" 
+
     },
+
     {
+        
         "name": "CustMicrosoft",
         "email": "cust@microsoft.com",
         "phone_no": "1234567890"
+        
     }
 
 ]
@@ -208,7 +214,11 @@ output:
 
 2.Used the existing Business table data from the database for search data 
 
-3.Example :
+3.Url for throttle page
+
+http://localhost/kohana_rest_services/index.php/web/welcome
+
+4.Example :
 
 ![Alt text](/public/images/search.png?raw=true "Throttle Search")
 

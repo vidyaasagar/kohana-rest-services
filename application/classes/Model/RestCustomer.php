@@ -58,7 +58,7 @@ class Model_RestCustomer extends Model_RestAPI {
             $customer = ORM::factory('customer');
             $customer->name = $params['name'];
             $customer->email = $params['email']; 
-            $customer->phone_no = $params['phone_no'];
+            $customer->phone_no = $params['phone_no']; 
             $customer->business_id = $params['business_id']; 
             try
             {       
@@ -193,45 +193,101 @@ class Model_RestCustomer extends Model_RestAPI {
     }
     public function getData($params)
     {
-        if (!isset($params['id']))
+        if (isset($params['code']))
 		{
-			throw HTTP_Exception::factory(400, array(
-				'error' => __('Missing Business ID'),
-				'field' => 'ID',
-			));
+			$column = 'code';
+            $column_value = $params['code'];
 		}
+        //if you select business from select boxes general id is passed it does not changes 
+        //while code may change
+        //based on requirement you can name parameter as business_id also
+        else if (isset($params['id']))
+		{
+			$column = 'id';
+            $column_value = $params['id'];
+		}
+        else
+        {
+            throw HTTP_Exception::factory(400, array(
+				'error' => __('Missing Business ID/Code'),
+				'field' => 'id/code',
+			));
+        }
         // Find out if a particular person is a customer in a business
-        //http://localhost/kohana_rest_services/index.php/v1/customer?id=1&check_customer=1
+        //http://localhost/rest_services_kohana/index.php/v1/customer?id=1&check_customer=1
         if(isset($params['check_customer']))
         {
-            $customer = ORM::factory('customer')
-            ->where('business_id', '=', $params['id'])
-            ->where('id', '=', $params['check_customer'])
+            return($this->check_customer($column,$column_value,$params['check_customer']));
+
+        }
+        else{
+            //get all customers belonging to a business
+            return($this->get_all_customers($column,$column_value));
+        }
+       
+    }
+    public function check_customer($column,$value,$staff_id)
+    {
+            $business = ORM::factory('business')
+            ->where($column, '=', $value)
             ->find();
-            if ($customer->loaded())
+            if ($business->loaded())
+		    {
+               
+                $customer = ORM::factory('customer')
+                ->where('id', '=', $staff_id)
+                ->where('business_id', '=', $business->id)
+                ->find();
+                //return $business->id;
+                if ($customer->loaded())
+                {
+                    return array('message'=>$customer->name.' Is a customer of '.$business->name);
+                }
+                else{
+                    return array('message'=>'Invalid customer ID/Bussiness ID/not a customer of'.$business->name);
+                }
+                
+            }
+            else
             {
-                if($customer->business_id==$params['id'])
-                return array('message'=>$customer->name.' Is a customer');
+                throw HTTP_Exception::factory(400, array(
+				'error' => __('Wrong Business Code-'.$column.'-'.$value),
+				'field' => 'code',
+			    ));
             }
-            else{
-                return array('message'=>'Invalid customer ID/Bussiness ID/not a customer');
+        
+    }
+    public function get_all_customers($column,$value)
+    {
+            $business = ORM::factory('business')
+            ->where($column, '=', $value)
+            ->find();
+            if ($business->loaded())
+		    {
+                 $customer = ORM::factory('customer')
+                ->where('business_id', '=', $business->id)
+                ->find_all();
+                $array_data=array();
+                $i=0;
+                foreach ($customer as $key => $value) {
+                    # code...
+                    $array_data[$i]['name']=$value->name;
+                    $array_data[$i]['email']=$value->email;
+                    $array_data[$i]['phone_no']=$value->phone_no;
+                    $i++;
+
+                }
+                return $array_data;
+                
             }
-
-        }
-        $business = ORM::factory('customer')
-        ->where('business_id', '=', $params['id'])
-		->find_all();
-        $array_data=array();
-        $i=0;
-        foreach ($business as $key => $value) {
-            # code...
-            $array_data[$i]['name']=$value->name;
-            $array_data[$i]['email']=$value->email;
-            $array_data[$i]['phone_no']=$value->phone_no;
-            $i++;
-
-        }
-        return $array_data;
+            else
+            {
+                throw HTTP_Exception::factory(400, array(
+				'error' => __('Wrong Business Code'),
+				'field' => 'code',
+			    ));
+            }
+        
     }
 
 }
