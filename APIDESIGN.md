@@ -210,6 +210,6 @@ output:
 
 3.Example :
 
-![Alt text](public/images/search.jpg?raw=true "Throttle Search")
+![Alt text](../../public/images/search.png?raw=true "Throttle Search")
 
 
