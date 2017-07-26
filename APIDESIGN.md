@@ -1,4 +1,4 @@
-# Database and API call design
+# Database and API call design, Throttle Search
 
 -->Created Business,Customer and Staff tables in Database as follows
 
@@ -90,7 +90,9 @@ parameter:id=1(id of business omnify)
 URL: http://localhost/rest_services_kohana/index.php/v1/customer?id=1
 
 output:
-[{       
+
+[
+    {       
         "name": "trendysoft",
         "email": "trendy@soft.com",
         "phone_no": "1235467890"        
@@ -100,6 +102,7 @@ output:
         "email": "cust@microsoft.com",
         "phone_no": "1234567890"
     }
+
 ]
 
 2)List All the staff of a business
@@ -131,6 +134,7 @@ output:
 ]
 
 3)Find out if a particular person is a customer of a business
+
 Method:GET
 
 parameters:id=1(id of business omnify),check_customer(id of a customer)
@@ -169,11 +173,13 @@ query parameters: id=1,name=sam,email=sam@omnify.com,business_id=1,phone_no=1234
 output:
 
 {
+    
     "staff": {
         "id": "1",
         "name": "sam",
         "message": "successfully updated"
     }
+    
 }
 
 6)Edit basic info of customer
@@ -185,10 +191,25 @@ Url:http://localhost/kohana_rest_services/index.php/v1/customer?id=2&business_id
 query parameters:id=2&business_id=1&phone_no=1234598762
 
 output:
+
 {
+    
     "customer": {
         "id": "2",
         "name": "CustMicrosoft",
         "message": "successfully updated"
     }
+
 }
+
+# Throttle Search using Twitter's typeahead.js
+
+1.Created a Simple html page, that has a search input text bar in views/index.php
+
+2.Used the existing Business table data from the database for search data 
+
+3.Example :
+
+![Alt text](public/images/search.jpg?raw=true "Throttle Search")
+
+
