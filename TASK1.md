@@ -3,6 +3,7 @@
 -->Created Business,Customer and Staff tables in Database as follows
 
 Business->id(primary Key), name, description, location
+
 sample data in table:
   [{     "id": 1,
         "name": "omnify",
@@ -16,6 +17,7 @@ sample data in table:
   }]
 
 Customer->id(pk), email, phone_no, business_id(fk)(references 'id' from business table)
+
 sample data in table:
     [{   "id":1,
         "name": "trendysoft",
@@ -37,6 +39,7 @@ sample data in table:
     }]
 
 Staff->id(pk), email, phone_no, business_id(fk)(references 'id' from business table)
+
 sample data in the table:
 [
     {
@@ -62,8 +65,11 @@ sample data in the table:
 API Call Design:
 
 1)List All customers of a business
+
 Method: GET
+
 parameter:id=1(id of business omnify)
+
 URL: http://localhost/rest_services_kohana/index.php/v1/customer?id=1
 
 output:
@@ -80,8 +86,11 @@ output:
 ]
 
 2)List All the staff of a business
+
 Method:GET
+
 parameter:id=1(id of business omnify)
+
 Url: http://localhost/rest_services_kohana/index.php/v1/staff?id=1
 
 output:
@@ -106,7 +115,9 @@ output:
 
 3)Find out if a particular person is a customer of a business
 Method:GET
+
 parameters:id=1(id of business omnify),check_customer(id of a customer)
+
 Url: http://localhost/kohana_rest_services/index.php/v1/customer?id=1&check_customer=1
  
 output:
@@ -116,8 +127,11 @@ output:
 }
 
 4)Find out if a particular person is a staff of a business
+
 Method:GET
+
 Url: http://localhost/kohana_rest_services/index.php/v1/staff?id=1&check_staff=3
+
 parameters:id=1(id of business omnify),check_staff(id of a staff)
 
  
@@ -128,7 +142,9 @@ output:
 }
 
 5)Edit basic info of a staff 
+
 Method:PUT
+
 Url:http://localhost/kohana_rest_services/index.php/v1/staff?id=1&name=sam&email=sam@omnify.com&business_id=1&phone_no=1234598760
 
 query parameters: id=1,name=sam,email=sam@omnify.com,business_id=1,phone_no=1234598760
@@ -144,8 +160,11 @@ output:
 }
 
 6)Edit basic info of customer
+
 Method:PUT
+
 Url:http://localhost/kohana_rest_services/index.php/v1/customer?id=2&business_id=1&phone_no=1234598762
+
 query parameters:id=2&business_id=1&phone_no=1234598762
 
 output:
