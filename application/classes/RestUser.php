@@ -1,73 +1,60 @@
 <?php
 
-class RestUser  extends Kohana_RestUser{
-    protected $userData;
+class RestUser extends Kohana_RestUser {
+	protected $name='';
 
-    protected function _find(){
-        $api_key = ORM::factory('APIKeys')
+	protected function _find()
+	{
+		//generally these are stored in databases 
+		$api_keys=array('abc','123','testkey');
+		
+		$users['abc']['name']='Sam';
+		$users['abc']['roles']=array('admin','login');
+
+		$users['123']['name']='John';
+		$users['123']['roles']=array('login');
+        
+		$users['testkey']['name']='';
+		$users['testkey']['roles']=array('login');
+
+		foreach ($api_keys as $key => $value) {
+			if($value==$this->_api_key){
+				//the key is validated which is authorized key
+				$this->_id = $key;//if this not null then controller thinks it is validated
+				//$this->_id must be set if key is valid.
+				//setting name
+				$this->name = $users[$value];
+				$this->_roles = $users[$value]['roles']; 
+				break;
+
+			}
+		}
+
+		
+
+
+
+		/*$api_key = ORM::factory('APITokens')
 		->where('token', '=', $this->_api_key)
 		->find();
 		if ($api_key->loaded())
 		{
 			$this->_id = $api_key->user_id;
-            $this->_roles = array();
-            $login_role = ORM::factory('role', array('name' => 'login'));
-            $admin_role = ORM::factory('role', array('name' => 'admin'));
-            $user = ORM::factory('user', array('id' => $api_key->user_id));
-            //$user->username='admin1';
-            //$user->save();
-            if($user->has('roles',$login_role)){
-               array_push($this->_roles,'login');
-            }
-            if($user->has('roles',$admin_role)){
-                 array_push($this->_roles,'admin');
-            }
-            $this->userData=array(
-						'username'=>$user->username,
-						'email'=>$user->email,
-                        'loginRole'=>$this->is_a('login'),
-                        'adminRole'=>$this->is_a('admin'),
-					);
-
-            
+			$this->_roles = array('login');
 		}
 		else
 		{
 			$this->_id = NULL;
-		}
+		}*/
+		
 
-    }
-    public function getUser(){
-       
-		return $this->userData;
-    }
-    public function updateUser($email){
-       $user = ORM::factory('user', array('id' => $this->_id));
-       $user->email=$email;
-       $user->save();
-    return array(
-						'username'=>$user->username,
-						'email'=>$user->email,
-                        'message'=>'data updated'
-					);
-    }
-    public function getUsers()
-    {
-        if($this->is_a('admin')){
-            $user = ORM::factory('user');
-            $users = $user->find_all();
-            $data=array();
-            $i=0;
-            foreach ($users as $key => $value) {
-                # code...
-                $data[$i]['username']=$value->username;
-                $data[$i]['email']=$value->email;
-                $i++;
-            }
-            return $data;
-        }else{
-            return array('error'=>'unauthorized');
-        }
-
-    }
+	}
+	public function get_user_id()
+	{
+		return $this->_id;
+	}
+	public function get_name()
+	{
+		return $this->name;
+	}
 }

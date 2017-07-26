@@ -153,3 +153,10 @@ Route::set('default', '<version>(/<directory>)/<controller>(.<format>)',
 	->defaults(array(
 		'format' => 'json',
 	));
+//for web pages typeahead
+Route::set('web', 'web(/<controller>(/<action>(/<id>)))')
+    ->defaults(array(
+        'controller' => 'welcome',
+        'action'     => 'index',
+    ));
+
