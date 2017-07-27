@@ -12,24 +12,34 @@ class Controller_Main extends Controller_REST{
 	}
     		/*
 				urls : 
-				http://localhost/rest_services_kohana/index.php/v1/main?main=business&search=m
+
 				For searching based on business name
-				http://localhost/rest_services_kohana/index.php/v1/main?main=business
+				http://localhost/kohana_rest_services/index.php/v1/main?main=business&search=m
+				
 				To Get all business
-				http://localhost/rest_services_kohana/index.php/v1/main?main=business&name=Microsoft&description=S/w Company&location=hyderabad
+				http://localhost/kohana_rest_services/index.php/v1/main?main=business
+				
 				To create a business
-				http://localhost/rest_services_kohana/index.php/v1/main?main=business&name=TCS&description=S/w Company&location=hyderabad&code=TCS
+				http://localhost/kohana_rest_services/index.php/v1/main?main=business&name=Microsoft&description=S/w Company&location=hyderabad
+				
 				To create a customer
-				http://localhost/rest_services_kohana/index.php/v1/main?main=staff&name=Gireesh&phone_no=9700297966&email=ggg@l.com&business_id=1
+				http://localhost/kohana_rest_services/index.php/v1/main?main=customer&name=sagar1&phone_no=2700297996&email=ggg@l.com&business_id=1
+				
 				To create a staff
-				http://localhost/rest_services_kohana/index.php/v1/main?main=customer&code=MS
+				http://localhost/kohana_rest_services/index.php/v1/main?main=staff&name=sagar&phone_no=1700297996&email=ggg@l.com&business_id=1
+				
 				To get all customers based on business code
-				http://localhost/rest_services_kohana/index.php/v1/main?main=customer&id=1
-				To get all customers based on business id
-				http://localhost/rest_services_kohana/index.php/v1/main?main=customer&check_customer=1&id=1
+				http://localhost/kohana_rest_services/index.php/v1/main?main=customer&code=MS
+				
+				To get all customers based on business idTo get all customers based on business id
+				http://localhost/kohana_rest_services/index.php/v1/main?main=customer&id=1
+				
 				to check whether a customer is of particular business based on id of business
-				http://localhost/rest_services_kohana/index.php/v1/main?main=customer&check_customer=1&code=MS
-				to check whether a customer is of particular business based on code of business 
+				http://localhost/kohana_rest_services/index.php/v1/main?main=customer&check_customer=1&id=1
+				
+				to check whether a customer is of particular business based on code of business
+				http://localhost/kohana_rest_services/index.php/v1/main?main=customer&check_customer=1&code=MS
+				 
 			*/
     public function action_index()
     {
@@ -75,7 +85,7 @@ class Controller_Main extends Controller_REST{
     /*
     Method POST
     example Url :
-    http://localhost/rest_services_kohana/index.php/v1/business?name=MIcrosoft&description=Big Company&location=Hyderabad
+    http://localhost/kohana_rest_services_/index.php/v1/business?name=MIcrosoft&description=S/w Company&location=Hyderabad
     returns 
     {"business":{"id":1,"name":"MIcrosoft"}}
     */
